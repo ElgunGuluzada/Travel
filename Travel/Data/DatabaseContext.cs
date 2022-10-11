@@ -14,6 +14,7 @@ namespace Travel.Data
 
         public DbSet<Country>? Countries { get; set; }
         public DbSet<City>? Cities { get; set; }
+        public DbSet<TravelModel>? Travels { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

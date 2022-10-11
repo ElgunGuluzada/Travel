@@ -7,7 +7,7 @@ using Travel.Entities;
 using Travel.Filter;
 using Travel.ViewModels;
 
-namespace Home.Controllers
+namespace Travel.Controllers
 {
     public class TravelController : Controller
     {
@@ -20,7 +20,9 @@ namespace Home.Controllers
 
         public IActionResult Index()
         {
-
+            List<TravelModel> travelModels = _context.Travels.Include(c => c.Country)
+                  .Include(c => c.City).ToList();
+            ViewBag.Travels = travelModels;
           ViewBag.countryList = _context.Countries.Include(c=>c.Cities).ToList();
           ViewBag.cityList = _context.Countries.Include(c=>c.Cities).ToList();
           return View();
@@ -31,7 +33,7 @@ namespace Home.Controllers
             ViewBag.Countries = new SelectList(_context.Countries.ToList(), "Id", "Name");
             var countryList = _context.Countries.Include(c => c.Cities).ToList();
             var cityList = _context.Cities.ToList();
-
+            
             return View();
         }
 
@@ -42,19 +44,19 @@ namespace Home.Controllers
 
             ViewBag.Cities = new SelectList(_context.Cities.ToList(), "Id", "Name");
             ViewBag.Countries = new SelectList(_context.Countries.ToList(), "Id", "Name");
-            List<TravelModel> travels = new List<TravelModel>();
+            //List<TravelModel> travels = new List<TravelModel>();
 
             TravelModel travel = new TravelModel()
             {
                 CityId = model.CityId,
                 CountryId = model.CountryId,
                 StartDate = model.StartDate,
-                EndDate = model.FinishedDate,
+                EndDate = model.EndDate,
                 Fund = model.Fund
             };
-            travels.Add(travel);
+            _context.Travels.Add(travel);
             _context.SaveChanges();
-            return View();
+            return Ok(travel);
         }
 
         public IActionResult Filter([FromQuery] Filtering filter)

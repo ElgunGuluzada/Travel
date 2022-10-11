@@ -10,7 +10,6 @@ namespace Travel.ViewModels
         public int? CityId { get; set; }
         public City? City { get; set; }
         public DateTime? StartDate { get; set; }
-        public DateTime? FinishedDate { get; set; }
-
+        public DateTime? EndDate { get; set; }
     }
 }

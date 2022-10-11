@@ -1,5 +1,8 @@
-﻿@model TravelVM
+﻿@model List<TravelVM>
 
+@{
+    int numb = 0;
+}
 <a asp-contoller="travel" asp-action="create">Yeni Seyahet</a>
 <div>
     <table class="table">
@@ -15,14 +18,18 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
+                @foreach (var item in @ViewBag.Travels)
+                {
+                    numb++;
+                     <tr>
+                        <td>@numb</td>
+                        <td>@item.Country.Name</td>
+                        <td>@item.City.Name</td>
+                        <td>@item.StartDate</td>
+                        <td>@item.EndDate</td>
+                        <td>@item.Fund</td>
+                     </tr>
+                }
         </tbody>
     </table>
 </div>
