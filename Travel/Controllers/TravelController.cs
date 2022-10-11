@@ -20,6 +20,8 @@ namespace Travel.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.Cities = new SelectList(_context.Cities.ToList(), "Id", "Name");
+            ViewBag.Countries = new SelectList(_context.Countries.ToList(), "Id", "Name");
             List<TravelModel> travelModels = _context.Travels.Include(c => c.Country)
                   .Include(c => c.City).ToList();
             ViewBag.Travels = travelModels;
@@ -45,6 +47,17 @@ namespace Travel.Controllers
             ViewBag.Cities = new SelectList(_context.Cities.ToList(), "Id", "Name");
             ViewBag.Countries = new SelectList(_context.Countries.ToList(), "Id", "Name");
             //List<TravelModel> travels = new List<TravelModel>();
+
+
+            //Bunlari hele ki, test ucun qeyd etmisem sonda tempdata ile gonderecem
+            if (model.StartDate>model.EndDate)
+            {
+                return Ok("Zehmet olmasa tarixleri duzgun qeyd edin");
+            }
+            if (model.Fund < 0)
+            {
+                return Ok("Zehmet olmasa duzgun qiymet daxil edin");
+            }
 
             TravelModel travel = new TravelModel()
             {

@@ -1,9 +1,58 @@
-﻿@model List<TravelVM>
+﻿@model TravelVM
 
 @{
     int numb = 0;
 }
-<a asp-contoller="travel" asp-action="create">Yeni Seyahet</a>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+@*<a asp-contoller="travel" asp-action="create">Yeni Seyahet</a>*@
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+    Yeni Seyahet
+</button>
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+    <form method="post">
+        <h2 class="title">Yeni Səyahət</h2>
+        <div class="row col-12">
+            <div class="input-field">
+                <i class="fas fa-calendar"></i>
+                <label>Baslangic Tarixi</label>
+                <input data-provide="datepicker" asp-for="StartDate" required="yes">
+            </div>
+        </div>
+        <div class="row col-12">
+            <div class="input-field">
+                <i class="fas fa-calendar"></i>
+                <label>Son Tarix</label>
+                <input data-provide="datepicker" asp-for="EndDate" required="yes">
+            </div>
+        </div>
+        <div class="input-field">
+            <label>Olke</label>
+            <select style="background-color: hsla(0, 0%, 0%, 0);" asp-for="CountryId" asp-items="@ViewBag.Countries">
+                <option style="background-color: hsla(0, 0%, 0%, 0);" value="" disabled selected>Secin</option>
+            </select>
+        </div>
+        <div class="input-field">
+            <label>Seher</label>
+            <select style="background-color: hsla(0, 0%, 0%, 0);" asp-for="CityId" asp-items="@ViewBag.Cities">
+                <option style="background-color: hsla(0, 0%, 0%, 0);" value="" disabled selected>Secin</option>
+            </select>
+        </div>
+        <div class="input-field">
+            <label>Istifade olunan vesait(AZN)</label>
+            <input asp-for="Fund" required="yes">
+        </div>
+        <a class="btn btn-primary" asp-controller="Travel" asp-action="Index" type="submit" value="Imtina" class="btn solid">Imtina</a>
+        <input asp-controller="Travel" asp-action="Create" type="submit" value="Yaddas" class="btn solid">
+    </form>
+</div>
+</div>
+</div>
+
 <div>
     <table class="table">
         <thead>
@@ -25,11 +74,16 @@
                         <td>@numb</td>
                         <td>@item.Country.Name</td>
                         <td>@item.City.Name</td>
-                        <td>@item.StartDate</td>
-                        <td>@item.EndDate</td>
+                        <td>@item.StartDate.ToString("dddd, dd MMMM yyyy")</td>
+                        <td>@item.EndDate.ToString("dddd, dd MMMM yyyy")</td>
                         <td>@item.Fund</td>
                      </tr>
                 }
         </tbody>
     </table>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.2/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
