@@ -1,0 +1,47 @@
+﻿@model TravelVM
+@{
+    Layout = null;
+}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"/>
+<div>
+
+
+    <form method="post">
+        <h2 class="title">Yeni Səyahət</h2>
+        <div class="row col-12">
+            <div class="input-field">
+                <i class="fas fa-calendar"></i>
+                <label>Baslangic Tarixi</label>
+                <input data-provide="datepicker" asp-for="StartDate" required="yes">
+            </div>
+        </div>
+        <div class="row col-12">
+            <div class="input-field">
+                <i class="fas fa-calendar"></i>
+                <label>Son Tarix</label>
+                <input data-provide="datepicker" asp-for="FinishedDate" required="yes">
+            </div>
+        </div>
+        <div class="input-field">
+            <label>Olke</label>
+            <select style="background-color: hsla(0, 0%, 0%, 0);" asp-for="CountryId" asp-items="@ViewBag.Countries">
+                <option style="background-color: hsla(0, 0%, 0%, 0);" value="" disabled selected>Secin</option>
+            </select>
+        </div>
+        <div class="input-field">
+            <label>Seher</label>
+            <select style="background-color: hsla(0, 0%, 0%, 0);" asp-for="CityId" asp-items="@ViewBag.Cities">
+                <option style="background-color: hsla(0, 0%, 0%, 0);" value="" disabled selected>Secin</option>
+            </select>
+        </div>
+       <div class="input-field">
+           <label>Istifade olunan vesait(AZN)</label>
+            <input asp-for="Fund" required="yes">
+       </div>
+        <a class="btn btn-primary" asp-controller="Home" asp-action="Index" type="submit" value="Imtina" class="btn solid">Imtina</a>
+        <input asp-controller="Home" asp-action="Create" type="submit" value="Yaddas" class="btn solid">
+    </form>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.2.2/js/bootstrap.min.js"></script>
